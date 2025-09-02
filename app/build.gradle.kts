@@ -1,3 +1,4 @@
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -63,5 +64,7 @@ dependencies {
     implementation(libs.coil.compose)
     implementation(libs.coil.network)
     implementation(libs.androidx.navigation.compose)
-
+    implementation(libs.ui)
+    implementation(libs.material3)
+    implementation(libs.androidx.lifecycle.runtime.compose)
 }
