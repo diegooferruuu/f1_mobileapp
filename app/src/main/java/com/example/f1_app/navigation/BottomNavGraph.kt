@@ -8,6 +8,7 @@ import com.example.f1_app.features.home.presentation.HomeScreen
 import androidx.compose.material3.Text
 import androidx.compose.ui.Modifier
 import com.example.f1_app.features.calendar.presentation.CalendarScreen
+import com.example.f1_app.features.drivers.presentation.DriversScreen
 import com.example.f1_app.features.teams.presentation.TeamsScreen
 
 @Composable
@@ -20,8 +21,8 @@ fun BottomNavGraph(navController: NavHostController, modifier: Modifier = Modifi
         composable("home") { HomeScreen() }
         composable("calendar") { CalendarScreen() }
         composable("teams") { TeamsScreen() }
-        composable("drivers") { Text("Drivers Screen") }
-        composable("results") { Text("Race Results Screen") }
+        composable("drivers") { DriversScreen() }
+        composable("results") { Text("FUNCIONALIDAD EN DESARROLLO") }
     }
 }
 
