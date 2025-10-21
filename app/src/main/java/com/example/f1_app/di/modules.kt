@@ -11,6 +11,7 @@ import com.example.f1_app.features.calendar.domain.repository.CalendarRepository
 import com.example.f1_app.features.calendar.domain.usecase.GetMeetingsUseCase
 import com.example.f1_app.features.calendar.presentation.CalendarViewModel
 import com.squareup.moshi.Moshi
+import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.android.ext.koin.androidContext
@@ -19,6 +20,10 @@ import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 
+private val squareup: Any
+    get() {
+        TODO()
+    }
 val appModule = module {
     single<HomeRepository>{ HomeRepositoryImpl() }
     factory { GetHomeOverviewUseCase(get()) }
@@ -31,7 +36,12 @@ val appModule = module {
             .addInterceptor(logging)
             .build()
     }
-    single { Moshi.Builder().build() }
+    // Moshi with Kotlin support (required for Kotlin data classes)
+    single {
+        Moshi.Builder()
+            .addLast(KotlinJsonAdapterFactory())
+            .build()
+    }
     single {
         Retrofit.Builder()
             .baseUrl("https://api.openf1.org/")
