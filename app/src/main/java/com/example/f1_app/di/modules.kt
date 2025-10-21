@@ -10,6 +10,12 @@ import com.example.f1_app.features.calendar.data.repository.CalendarRepositoryIm
 import com.example.f1_app.features.calendar.domain.repository.CalendarRepository
 import com.example.f1_app.features.calendar.domain.usecase.GetMeetingsUseCase
 import com.example.f1_app.features.calendar.presentation.CalendarViewModel
+import com.example.f1_app.features.drivers.data.api.DriversApiService
+import com.example.f1_app.features.drivers.data.datasource.DriverRemoteDataSource
+import com.example.f1_app.features.drivers.data.repository.DriverRepositoryImpl
+import com.example.f1_app.features.drivers.domain.repository.DriverRepository
+import com.example.f1_app.features.drivers.domain.usecase.GetDriversUseCase
+import com.example.f1_app.features.drivers.presentation.DriverViewModel
 import com.example.f1_app.features.teams.data.api.TeamsApiService
 import com.example.f1_app.features.teams.data.datasource.TeamsRemoteDataSource
 import com.example.f1_app.features.teams.data.repository.TeamsRepositoryImpl
@@ -32,10 +38,6 @@ import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 
-private val squareup: Any
-    get() {
-        TODO()
-    }
 val appModule = module {
     single<HomeRepository>{ HomeRepositoryImpl() }
     factory { GetHomeOverviewUseCase(get()) }
@@ -69,7 +71,15 @@ val appModule = module {
     factory { GetMeetingsUseCase(get()) }
     viewModel { CalendarViewModel(get()) }
 
-    // Teams Fearture
+    // Drivers Feature
+    single<DriversApiService> { get<Retrofit>().create(DriversApiService::class.java) }
+    single { DriverRemoteDataSource(get()) }
+    single<DriverRepository> { DriverRepositoryImpl(get()) }
+    factory { GetDriversUseCase(get()) }
+    viewModel { DriverViewModel(get()) }
+
+
+    // Teams Feature
     single(named("TeamsRetrofit")) {
         Retrofit.Builder()
             .baseUrl("https://v1.formula-1.api-sports.io/")

@@ -101,6 +101,8 @@ dependencies {
 
     implementation(libs.androidx.material.icons.extended)
     implementation(libs.converter.gson)
+    implementation(libs.coil.compose)
+
 
     // Core library desugaring (java.time)
     coreLibraryDesugaring(libs.desugar.jdk.libs)

@@ -8,6 +8,5 @@ class TeamsRemoteDataSource(
 ) {
     suspend fun getTeams(): List<TeamDto> {
         val response = api.getTeams()
-        // Filtramos los equipos que tienen base nula
         return response.response.filter { it.base != null }
     }}
