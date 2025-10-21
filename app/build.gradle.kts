@@ -53,6 +53,9 @@ dependencies {
     implementation(libs.androidx.foundation)
     implementation(libs.androidx.material3)
     implementation(libs.androidx.ui.tooling.preview)
+    implementation(libs.ui)
+    implementation(libs.androidx.ui.tooling.data)
+    implementation(libs.cronet.embedded)
     debugImplementation(libs.androidx.ui.tooling)
 
     // Lifecycle / ViewModel
@@ -95,6 +98,9 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.test.manifest)
+
+    implementation(libs.androidx.material.icons.extended)
+    implementation(libs.converter.gson)
 
     // Core library desugaring (java.time)
     coreLibraryDesugaring(libs.desugar.jdk.libs)

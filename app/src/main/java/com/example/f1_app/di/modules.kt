@@ -10,12 +10,18 @@ import com.example.f1_app.features.calendar.data.repository.CalendarRepositoryIm
 import com.example.f1_app.features.calendar.domain.repository.CalendarRepository
 import com.example.f1_app.features.calendar.domain.usecase.GetMeetingsUseCase
 import com.example.f1_app.features.calendar.presentation.CalendarViewModel
+import com.example.f1_app.features.teams.data.api.TeamsApiService
+import com.example.f1_app.features.teams.data.datasource.TeamsRemoteDataSource
+import com.example.f1_app.features.teams.data.repository.TeamsRepositoryImpl
+import com.example.f1_app.features.teams.domain.repository.TeamsRepository
+import com.example.f1_app.features.teams.domain.usecase.GetTeamsUseCase
+import com.example.f1_app.features.teams.presentation.TeamsViewModel
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
-import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.core.qualifier.named
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
@@ -56,4 +62,19 @@ val appModule = module {
     single<CalendarRepository> { CalendarRepositoryImpl(get()) }
     factory { GetMeetingsUseCase(get()) }
     viewModel { CalendarViewModel(get()) }
+
+    // Teams Fearture
+    single(named("TeamsRetrofit")) {
+        Retrofit.Builder()
+            .baseUrl("https://v1.formula-1.api-sports.io/")
+            .addConverterFactory(MoshiConverterFactory.create(get()))
+            .client(get())
+            .build()
+    }
+
+    single<TeamsApiService> { get<Retrofit>(named("TeamsRetrofit")).create(TeamsApiService::class.java) }
+    single { TeamsRemoteDataSource(get()) }
+    single<TeamsRepository> { TeamsRepositoryImpl(get()) }
+    factory { GetTeamsUseCase(get()) }
+    viewModel { TeamsViewModel(get()) }
 }
