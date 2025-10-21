@@ -16,6 +16,12 @@ import com.example.f1_app.features.teams.data.repository.TeamsRepositoryImpl
 import com.example.f1_app.features.teams.domain.repository.TeamsRepository
 import com.example.f1_app.features.teams.domain.usecase.GetTeamsUseCase
 import com.example.f1_app.features.teams.presentation.TeamsViewModel
+import com.example.f1_app.features.news.data.api.NewsApiService
+import com.example.f1_app.features.news.data.datasource.NewsRemoteDataSource
+import com.example.f1_app.features.news.data.repository.NewsRepositoryImpl
+import com.example.f1_app.features.news.domain.repository.NewsRepository
+import com.example.f1_app.features.news.domain.usecase.GetNewsUseCase
+import com.example.f1_app.features.news.presentation.NewsViewModel
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import okhttp3.OkHttpClient
@@ -77,4 +83,18 @@ val appModule = module {
     single<TeamsRepository> { TeamsRepositoryImpl(get()) }
     factory { GetTeamsUseCase(get()) }
     viewModel { TeamsViewModel(get()) }
+
+    // News Feature
+    single(named("NewsRetrofit")) {
+        Retrofit.Builder()
+            .baseUrl("https://f1-latest-news.p.rapidapi.com/")
+            .addConverterFactory(MoshiConverterFactory.create(get()))
+            .client(get())
+            .build()
+    }
+    single<NewsApiService> { get<Retrofit>(named("NewsRetrofit")).create(NewsApiService::class.java) }
+    single { NewsRemoteDataSource(get()) }
+    single<NewsRepository> { NewsRepositoryImpl(get()) }
+    factory { GetNewsUseCase(get()) }
+    viewModel { NewsViewModel(get()) }
 }
