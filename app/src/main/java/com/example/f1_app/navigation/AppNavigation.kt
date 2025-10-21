@@ -16,7 +16,7 @@ fun AppNavigation() {
 
     NavHost(
         navController = navController,
-        startDestination = Screen.Calendar.route
+        startDestination = Screen.HomeScreen.route
     ) {
         composable(Screen.HomeScreen.route) {
             HomeScreen()

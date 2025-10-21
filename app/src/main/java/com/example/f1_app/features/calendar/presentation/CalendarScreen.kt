@@ -57,9 +57,9 @@ fun CalendarScreen(viewModel: CalendarViewModel = koinViewModel()) {
                     Spacer(Modifier.height(12.dp))
 
                     Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                        AssistChip(onClick = {}, label = { Text("Season: 2025") })
-                        AssistChip(onClick = {}, label = { Text("Region: All") })
-                        AssistChip(onClick = {}, label = { Text("Session: Race") })
+                        AssistChip(onClick = {}, label = { Text(text = "Season: 2025", style = MaterialTheme.typography.bodySmall.copy(color = Color.White))})
+                        AssistChip(onClick = {}, label = { Text("Region: All", style = MaterialTheme.typography.bodySmall.copy(color = Color.White))})
+                        AssistChip(onClick = {}, label = { Text("Session: Race", style = MaterialTheme.typography.bodySmall.copy(color = Color.White))})
                     }
 
                     Spacer(Modifier.height(12.dp))
