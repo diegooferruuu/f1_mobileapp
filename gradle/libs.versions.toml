@@ -29,6 +29,9 @@ desugar = "2.1.2"
 uiVersion = "1.9.3"
 uiToolingData = "1.9.3"
 cronetEmbedded = "141.7340.3"
+googleGmsGoogleServices = "4.4.4"
+firebaseDatabase = "22.0.1"
+firebaseAuth = "23.1.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -83,6 +86,8 @@ koin-test-junit4 = { module = "io.insert-koin:koin-test-junit4", version.ref = "
 ui = { group = "androidx.compose.ui", name = "ui", version.ref = "uiVersion" }
 androidx-ui-tooling-data = { group = "androidx.compose.ui", name = "ui-tooling-data", version.ref = "uiToolingData" }
 cronet-embedded = { group = "org.chromium.net", name = "cronet-embedded", version.ref = "cronetEmbedded" }
+firebase-database = { group = "com.google.firebase", name = "firebase-database", version.ref = "firebaseDatabase" }
+firebase-auth = { group = "com.google.firebase", name = "firebase-auth", version.ref = "firebaseAuth" }
 
 
 
@@ -91,4 +96,5 @@ cronet-embedded = { group = "org.chromium.net", name = "cronet-embedded", versio
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+google-gms-google-services = { id = "com.google.gms.google-services", version.ref = "googleGmsGoogleServices" }
 
