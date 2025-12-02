@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.google.gms.google.services)
 }
 
 android {
@@ -10,11 +11,11 @@ android {
     compileSdk = 36
 
     defaultConfig {
-        applicationId = "com.example.f1_app"
+        applicationId = "com.ucb.companion_app"
         minSdk = 24
         targetSdk = 36
-        versionCode = 1
-        versionName = "1.0"
+        versionCode = 2
+        versionName = "2.0.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -56,6 +57,7 @@ dependencies {
     implementation(libs.ui)
     implementation(libs.androidx.ui.tooling.data)
     implementation(libs.cronet.embedded)
+    implementation(libs.firebase.database)
     debugImplementation(libs.androidx.ui.tooling)
 
     // Lifecycle / ViewModel
@@ -102,6 +104,10 @@ dependencies {
     implementation(libs.androidx.material.icons.extended)
     implementation(libs.converter.gson)
     implementation(libs.coil.compose)
+
+    // Firebase
+    implementation(libs.firebase.auth)
+    implementation(libs.firebase.database)
 
 
     // Core library desugaring (java.time)

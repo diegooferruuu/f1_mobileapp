@@ -1,5 +1,6 @@
 package com.example.f1_app.di
 
+import com.example.f1_app.features.auth.di.authModule
 import com.example.f1_app.features.home.data.repository.HomeRepositoryImpl
 import com.example.f1_app.features.home.domain.repository.HomeRepository
 import com.example.f1_app.features.home.domain.usecase.GetHomeOverviewUseCase
