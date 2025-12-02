@@ -11,14 +11,20 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ExitToApp
 import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material.icons.filled.Flag
 import androidx.compose.material.icons.filled.Group
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Person
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -27,7 +33,10 @@ import com.example.f1_app.features.auth.presentation.SignUpScreen
 import com.example.f1_app.navigation.BottomNavBar
 import com.example.f1_app.navigation.BottomNavGraph
 import com.example.f1_app.navigation.BottomNavItem
+import com.example.f1_app.presentation.MainViewModel
+import com.example.f1_app.presentation.LogoutViewModel
 import com.example.f1_app.ui.theme.F1_appTheme
+import org.koin.androidx.compose.koinViewModel
 
 
 class MainActivity : ComponentActivity() {
@@ -81,10 +90,27 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun AppNavigationHost() {
     val navController = rememberNavController()
+    val viewModel: MainViewModel = koinViewModel()
+    val isLoading by viewModel.isLoading.collectAsStateWithLifecycle()
+    val isUserLoggedIn by viewModel.isUserLoggedIn.collectAsStateWithLifecycle()
+
+    // Show loading while checking auth state
+    if (isLoading) {
+        Box(
+            modifier = Modifier.fillMaxSize(),
+            contentAlignment = Alignment.Center
+        ) {
+            CircularProgressIndicator()
+        }
+        return
+    }
+
+    // Determine start destination based on auth state
+    val startDestination = if (isUserLoggedIn) "main" else "login"
 
     NavHost(
         navController = navController,
-        startDestination = "login"
+        startDestination = startDestination
     ) {
         composable("login") {
             LoginScreen(
@@ -123,14 +149,16 @@ fun AppNavigationHost() {
         }
 
         composable("main") {
-            MainScreen()
+            MainScreen(mainNavController = navController)
         }
     }
 }
 
 @Composable
-fun MainScreen() {
+fun MainScreen(mainNavController: androidx.navigation.NavHostController) {
     val navController = rememberNavController()
+    val logoutViewModel: LogoutViewModel = koinViewModel()
+
     val items = listOf(
         BottomNavItem("home", "Home", Icons.Default.Home),
         BottomNavItem("calendar", "Calendar", Icons.Default.DateRange),
@@ -140,7 +168,23 @@ fun MainScreen() {
     )
 
     Scaffold(
-        bottomBar = { BottomNavBar(navController, items) }
+        bottomBar = { BottomNavBar(navController, items) },
+        floatingActionButton = {
+            FloatingActionButton(
+                onClick = {
+                    logoutViewModel.logout {
+                        mainNavController.navigate("login") {
+                            popUpTo(0) { inclusive = true }
+                        }
+                    }
+                }
+            ) {
+                Icon(
+                    imageVector = Icons.AutoMirrored.Filled.ExitToApp,
+                    contentDescription = "Cerrar Sesión"
+                )
+            }
+        }
     ) { innerPadding ->
         BottomNavGraph(navController, modifier = Modifier.padding(innerPadding))
     }
