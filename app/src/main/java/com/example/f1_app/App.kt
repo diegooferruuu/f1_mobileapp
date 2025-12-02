@@ -13,6 +13,7 @@ class App: Application() {
         super.onCreate()
         startKoin {
             androidContext(this@App)
+            modules(appModule, authModule, remoteConfigModule)
             modules(appModule, authModule, remoteConfigModule, homeModule)
         }
     }

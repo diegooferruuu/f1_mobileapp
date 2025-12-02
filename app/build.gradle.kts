@@ -59,6 +59,7 @@ dependencies {
     implementation(libs.cronet.embedded)
     implementation(libs.firebase.database)
     implementation(libs.firebase.config)
+    implementation(libs.androidx.compose.ui.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
 
     // Lifecycle / ViewModel
@@ -114,4 +115,10 @@ dependencies {
 
     // Core library desugaring (java.time)
     coreLibraryDesugaring(libs.desugar.jdk.libs)
+
+    androidTestImplementation(libs.ui.test.junit4)
+    debugImplementation(libs.ui.test.manifest)
+    testImplementation(libs.androidx.core.testing)
+    testImplementation(libs.robolectric)
+
 }

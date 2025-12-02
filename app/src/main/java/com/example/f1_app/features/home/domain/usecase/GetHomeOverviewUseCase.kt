@@ -6,7 +6,7 @@ import com.example.f1_app.features.home.domain.repository.HomeRepository
 class GetHomeOverviewUseCase(
     private val repository: HomeRepository
 ) {
-    suspend operator fun invoke(): HomeOverview {
+    suspend operator fun invoke(): HomeOverview? {
         return repository.getOverview()
     }
 }
