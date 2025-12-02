@@ -87,6 +87,8 @@ dependencies {
 
     // Navigation Compose
     implementation(libs.androidx.navigation.compose)
+    // Internal notifications scheduling
+    implementation(libs.androidx.work.runtime.ktx)
 
     // Tests unitarios
     testImplementation(libs.junit)

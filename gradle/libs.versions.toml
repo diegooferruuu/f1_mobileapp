@@ -32,6 +32,7 @@ cronetEmbedded = "141.7340.3"
 googleGmsGoogleServices = "4.4.4"
 firebaseDatabase = "22.0.1"
 firebaseAuth = "23.1.0"
+work = "2.9.0"
 firebaseConfig = "23.0.1"
 
 [libraries]
@@ -89,6 +90,7 @@ androidx-ui-tooling-data = { group = "androidx.compose.ui", name = "ui-tooling-d
 cronet-embedded = { group = "org.chromium.net", name = "cronet-embedded", version.ref = "cronetEmbedded" }
 firebase-database = { group = "com.google.firebase", name = "firebase-database", version.ref = "firebaseDatabase" }
 firebase-auth = { group = "com.google.firebase", name = "firebase-auth", version.ref = "firebaseAuth" }
+androidx-work-runtime-ktx = { module = "androidx.work:work-runtime-ktx", version.ref = "work" }
 firebase-config = { group = "com.google.firebase", name = "firebase-config", version.ref = "firebaseConfig" }
 
 
