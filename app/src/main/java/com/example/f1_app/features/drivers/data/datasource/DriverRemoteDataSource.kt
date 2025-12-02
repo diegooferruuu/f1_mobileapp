@@ -14,7 +14,8 @@ class DriverRemoteDataSource(
                 image = dto.image ?: "",
                 nationality = dto.nationality ?: "",
                 abbr = dto.abbr ?: "",
-                number = dto.number ?: 0
+                number = dto.number ?: 0,
+                teamName = dto.teamName ?: ""
             )
         }
 }

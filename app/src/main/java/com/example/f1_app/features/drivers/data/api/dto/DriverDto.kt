@@ -11,5 +11,6 @@ data class DriverDto(
     @Json(name = "headshot_url") val image: String?,
     @Json(name = "nationality") val nationality: String?,
     @Json(name = "name_acronym") val abbr: String?,
-    @Json(name = "driver_number") val number: Int?
+    @Json(name = "driver_number") val number: Int?,
+    @Json(name = "team_name") val teamName: String?
 )

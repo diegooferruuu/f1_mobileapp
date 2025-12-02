@@ -10,6 +10,7 @@ import androidx.compose.ui.Modifier
 import com.example.f1_app.features.calendar.presentation.CalendarScreen
 import com.example.f1_app.features.drivers.presentation.DriversScreen
 import com.example.f1_app.features.teams.presentation.TeamsScreen
+import com.example.f1_app.features.results.presentation.ResultsScreen
 
 @Composable
 fun BottomNavGraph(navController: NavHostController, modifier: Modifier = Modifier) {
@@ -22,7 +23,7 @@ fun BottomNavGraph(navController: NavHostController, modifier: Modifier = Modifi
         composable("calendar") { CalendarScreen() }
         composable("teams") { TeamsScreen() }
         composable("drivers") { DriversScreen() }
-        composable("results") { Text("FUNCIONALIDAD EN DESARROLLO") }
+        composable("results") { ResultsScreen() }
     }
 }
 
