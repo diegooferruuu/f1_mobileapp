@@ -1,4 +1,10 @@
 package com.example.f1_app
+import android.Manifest
+import android.os.Build
+import android.content.pm.PackageManager
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat
+import com.example.f1_app.features.notifications.domain.NotificationScheduler
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -25,12 +31,49 @@ import com.example.f1_app.ui.theme.F1_appTheme
 
 
 class MainActivity : ComponentActivity() {
+        private val requestNotificationPermission =
+            registerForActivityResult(ActivityResultContracts.RequestPermission()) { granted ->
+                if (granted) {
+                    NotificationScheduler.scheduleImmediate(
+                        this,
+                        title = "Bienvenido a F1",
+                        body = "Explora los últimos resultados"
+                    )
+                    // Start periodic 15-minute reminders once permission is granted
+                    NotificationScheduler.schedulePeriodicReminder(this, 15)
+                }
+            }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             F1_appTheme {
                 AppNavigationHost()
             }
+        }
+
+        // Auto notification on app launch
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            val hasPermission = ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.POST_NOTIFICATIONS
+            ) == PackageManager.PERMISSION_GRANTED
+            if (hasPermission) {
+                NotificationScheduler.scheduleImmediate(
+                    this,
+                    title = "Bienvenido a F1",
+                    body = "Explora los últimos resultados"
+                )
+                NotificationScheduler.schedulePeriodicReminder(this, 15)
+            } else {
+                requestNotificationPermission.launch(Manifest.permission.POST_NOTIFICATIONS)
+            }
+        } else {
+            NotificationScheduler.scheduleImmediate(
+                this,
+                title = "Bienvenido a F1",
+                body = "Explora los últimos resultados"
+            )
+            NotificationScheduler.schedulePeriodicReminder(this, 15)
         }
     }
 }
