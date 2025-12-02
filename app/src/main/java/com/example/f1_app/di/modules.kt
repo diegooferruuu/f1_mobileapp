@@ -29,6 +29,14 @@ import com.example.f1_app.features.news.data.repository.NewsRepositoryImpl
 import com.example.f1_app.features.news.domain.repository.NewsRepository
 import com.example.f1_app.features.news.domain.usecase.GetNewsUseCase
 import com.example.f1_app.features.news.presentation.NewsViewModel
+import com.example.f1_app.features.results.data.api.ResultsApiService
+import com.example.f1_app.features.results.data.datasource.ResultsRemoteDataSource
+import com.example.f1_app.features.results.data.repository.ResultsRepositoryImpl
+import com.example.f1_app.features.results.domain.repository.ResultsRepository
+import com.example.f1_app.features.results.domain.usecase.GetSessionResultsUseCase
+import com.example.f1_app.features.results.domain.usecase.SearchSessionsUseCase
+import com.example.f1_app.features.results.presentation.ResultsViewModel
+import com.example.f1_app.features.results.domain.usecase.GetFastestLapUseCase
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import okhttp3.OkHttpClient
@@ -65,6 +73,7 @@ val appModule = module {
             .build()
     }
     single<OpenF1Service> { get<Retrofit>().create(OpenF1Service::class.java) }
+    single<ResultsApiService> { get<Retrofit>().create(ResultsApiService::class.java) }
 
     // Calendar feature
     single { CalendarRemoteDataSource(get()) }
@@ -108,4 +117,12 @@ val appModule = module {
     single<NewsRepository> { NewsRepositoryImpl(get()) }
     factory { GetNewsUseCase(get()) }
     viewModel { NewsViewModel(get()) }
+
+    // Results Feature
+    single { ResultsRemoteDataSource(get()) }
+    single<ResultsRepository> { ResultsRepositoryImpl(get()) }
+    factory { SearchSessionsUseCase(get()) }
+    factory { GetSessionResultsUseCase(get()) }
+    factory { GetFastestLapUseCase(get()) }
+    viewModel { ResultsViewModel(get(), get(), get(), get()) }
 }

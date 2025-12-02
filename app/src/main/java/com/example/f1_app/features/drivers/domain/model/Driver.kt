@@ -6,5 +6,6 @@ data class Driver (
     val image: String? = "Sin imagen",
     val nationality: String? = "Sin nacionalidad",
     val abbr: String?= "Sin abreviacion",
-    val number: Int?= 0
+    val number: Int?= 0,
+    val teamName: String? = "Sin equipo"
 )
