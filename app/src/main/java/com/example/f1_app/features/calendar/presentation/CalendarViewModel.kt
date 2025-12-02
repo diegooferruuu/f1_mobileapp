@@ -20,9 +20,9 @@ class CalendarViewModel(
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(CalendarUiState(isLoading = true))
-    val uiState: StateFlow<CalendarUiState> = _uiState
+    open val uiState: StateFlow<CalendarUiState> = _uiState
 
-    fun load(year: Int = 2025) {
+    open fun load(year: Int = 2025) {
         _uiState.value = CalendarUiState(isLoading = true)
         viewModelScope.launch {
             try {

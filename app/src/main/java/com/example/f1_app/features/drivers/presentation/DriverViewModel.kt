@@ -20,9 +20,9 @@ class DriverViewModel(
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(DriverUiState(isLoading = true))
-    val uiState: StateFlow<DriverUiState> = _uiState
+    open val uiState: StateFlow<DriverUiState> = _uiState
 
-    fun load(year: Int) {
+    open fun load(year: Int) {
         _uiState.value = _uiState.value.copy(isLoading = true, error = null)
         viewModelScope.launch {
             try {
