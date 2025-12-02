@@ -28,6 +28,7 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 fun HomeScreen(viewModel: HomeViewModel = koinViewModel()) {
     val state = viewModel.state.collectAsState()
+    val title = viewModel.title.collectAsState()
 
     state.value?.let { overview ->
         Column(
@@ -59,7 +60,7 @@ fun HomeScreen(viewModel: HomeViewModel = koinViewModel()) {
                         )
                 )
                 Text(
-                    "F1 Hub",
+                    title.value,
                     style = MaterialTheme.typography.headlineMedium.copy(
                         color = Color.White,
                         fontWeight = FontWeight.Bold

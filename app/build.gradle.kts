@@ -58,6 +58,7 @@ dependencies {
     implementation(libs.androidx.ui.tooling.data)
     implementation(libs.cronet.embedded)
     implementation(libs.firebase.database)
+    implementation(libs.firebase.config)
     debugImplementation(libs.androidx.ui.tooling)
 
     // Lifecycle / ViewModel
@@ -110,6 +111,7 @@ dependencies {
     // Firebase
     implementation(libs.firebase.auth)
     implementation(libs.firebase.database)
+    implementation(libs.firebase.config)
 
 
     // Core library desugaring (java.time)
