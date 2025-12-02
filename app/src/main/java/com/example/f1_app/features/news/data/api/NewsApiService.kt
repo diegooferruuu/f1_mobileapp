@@ -8,7 +8,7 @@ interface NewsApiService {
 
     @Headers(
         "x-rapidapi-host: f1-latest-news.p.rapidapi.com",
-        "x-rapidapi-key: "
+        "x-rapidapi-key: 3fe7754b80mshb5d06f5a77a76a7p1a473bjsnaf8b746d4082"
     )
     @GET("news")
     suspend fun getLatestNews(): List<NewsItemDto>
