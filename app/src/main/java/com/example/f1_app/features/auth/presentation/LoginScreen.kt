@@ -34,6 +34,7 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 fun LoginScreen(
     onLoginSuccess: () -> Unit,
+    onNavigateToSignUp: () -> Unit,
     onSkip: () -> Unit,
     viewModel: LoginViewModel = koinViewModel()
 ) {
@@ -236,6 +237,28 @@ fun LoginScreen(
 
                 Spacer(modifier = Modifier.height(16.dp))
 
+                // SignUp Navigation
+                Row(
+                    horizontalArrangement = Arrangement.Center,
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text(
+                        text = "¿No tienes cuenta?",
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                    TextButton(onClick = onNavigateToSignUp) {
+                        Text(
+                            text = "Registrarse",
+                            style = MaterialTheme.typography.bodyMedium,
+                            fontWeight = FontWeight.Bold
+                        )
+                    }
+                }
+
+                Spacer(modifier = Modifier.height(8.dp))
+
                 // Skip Button
                 TextButton(
                     onClick = onSkip,
@@ -262,4 +285,3 @@ fun LoginScreen(
         }
     }
 }
-
