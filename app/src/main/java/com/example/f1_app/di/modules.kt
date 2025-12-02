@@ -1,10 +1,5 @@
 package com.example.f1_app.di
 
-import com.example.f1_app.features.auth.di.authModule
-import com.example.f1_app.features.home.data.repository.HomeRepositoryImpl
-import com.example.f1_app.features.home.domain.repository.HomeRepository
-import com.example.f1_app.features.home.domain.usecase.GetHomeOverviewUseCase
-import com.example.f1_app.features.home.presentation.HomeViewModel
 import com.example.f1_app.features.calendar.data.api.OpenF1Service
 import com.example.f1_app.features.calendar.data.datasource.CalendarRemoteDataSource
 import com.example.f1_app.features.calendar.data.repository.CalendarRepositoryImpl
@@ -48,9 +43,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 
 val appModule = module {
-    single<HomeRepository>{ HomeRepositoryImpl() }
-    factory { GetHomeOverviewUseCase(get()) }
-    viewModel { HomeViewModel(get()) }
+    // Home module is now separate - see homeModule
 
     // Networking
     single {
