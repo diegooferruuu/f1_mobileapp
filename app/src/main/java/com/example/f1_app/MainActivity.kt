@@ -11,12 +11,15 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ExitToApp
 import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material.icons.filled.Flag
 import androidx.compose.material.icons.filled.Group
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -31,6 +34,7 @@ import com.example.f1_app.navigation.BottomNavBar
 import com.example.f1_app.navigation.BottomNavGraph
 import com.example.f1_app.navigation.BottomNavItem
 import com.example.f1_app.presentation.MainViewModel
+import com.example.f1_app.presentation.LogoutViewModel
 import com.example.f1_app.ui.theme.F1_appTheme
 import org.koin.androidx.compose.koinViewModel
 
@@ -145,14 +149,16 @@ fun AppNavigationHost() {
         }
 
         composable("main") {
-            MainScreen()
+            MainScreen(mainNavController = navController)
         }
     }
 }
 
 @Composable
-fun MainScreen() {
+fun MainScreen(mainNavController: androidx.navigation.NavHostController) {
     val navController = rememberNavController()
+    val logoutViewModel: LogoutViewModel = koinViewModel()
+
     val items = listOf(
         BottomNavItem("home", "Home", Icons.Default.Home),
         BottomNavItem("calendar", "Calendar", Icons.Default.DateRange),
@@ -162,7 +168,23 @@ fun MainScreen() {
     )
 
     Scaffold(
-        bottomBar = { BottomNavBar(navController, items) }
+        bottomBar = { BottomNavBar(navController, items) },
+        floatingActionButton = {
+            FloatingActionButton(
+                onClick = {
+                    logoutViewModel.logout {
+                        mainNavController.navigate("login") {
+                            popUpTo(0) { inclusive = true }
+                        }
+                    }
+                }
+            ) {
+                Icon(
+                    imageVector = Icons.AutoMirrored.Filled.ExitToApp,
+                    contentDescription = "Cerrar Sesión"
+                )
+            }
+        }
     ) { innerPadding ->
         BottomNavGraph(navController, modifier = Modifier.padding(innerPadding))
     }
